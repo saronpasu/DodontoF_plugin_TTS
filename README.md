@@ -60,33 +60,26 @@ TTS plugin for DodontoF
 ## COPYING
 ### Open JTalk
 > "The Japanese TTS System 'Open JTalk'
-
 developed by HTS Working Group
-
 http://open-jtalk.sourceforge.net/"
+
+
 > "Copyright (c) 2008-2013  Nagoya Institute of Technology
-
                          Department of Computer Science
-
 All rights reserved."
 
 
 ### HTS engine API
 > "The HMM-Based Speech Synthesis Engine 'hts_engine API'
-
 developed by HTS Working Group
-
 http://hts-engine.sourceforge.net/"
+
+
 > "Copyright (c) 2001-2013  Nagoya Institute of Technology
-
                          Department of Computer Science
-
               2001-2008  Tokyo Institute of Technology
-
                          Interdisciplinary Graduate School of
-
                          Science and Engineering
-
 All rights reserved."
 
 
