@@ -43,7 +43,7 @@ echo "build hts_engine ... "
 
 if FreeBSD != `uname`; then
   make
-elif
+else
   gmake
 fi
 
@@ -60,7 +60,7 @@ echo "build open_jtalk build ... "
 
 if FreeBSD != `uname`; then
   make
-elif
+else
   gmake
 fi
 
