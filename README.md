@@ -5,14 +5,14 @@ TTS plugin for DodontoF
 
 ## これは何？
 * どどんとふ(DodontoF)にTTS(Text to Speech)機能を追加することを目的としたプロジェクトです。
-* どどんとふって何？ → [こちら][http://www.dodontof.com/] をご覧ください。
-* TTS って何？ → [こちら][http://ja.wikipedia.org/wiki/%E9%9F%B3%E5%A3%B0%E5%90%88%E6%88%90] をご覧ください。
+* どどんとふって何？ → [こちら](http://www.dodontof.com/) をご覧ください。
+* TTS って何？ → [こちら](http://ja.wikipedia.org/wiki/%E9%9F%B3%E5%A3%B0%E5%90%88%E6%88%90) をご覧ください。
 
 
 ## 依存しているミドルウェア
-* Open JTalk [URL][http://open-jtalk.sourceforge.net/]
-* HTS engine API [URL][http://hts-engine.sourceforge.net/]
-* MMDAgent Example [URL][http://www.mmdagent.jp/]
+* Open JTalk [URL](http://open-jtalk.sourceforge.net/)
+* HTS engine API [URL](http://hts-engine.sourceforge.net/)
+* MMDAgent Example [URL](http://www.mmdagent.jp/)
 
 
 ## 導入に必要な環境
@@ -43,7 +43,6 @@ TTS plugin for DodontoF
 * README.ja.txt
 * COPYING
 * AUTHOR
-* LICENCE
 * open_jtalk_install.sh
     * Open JTalk 環境をインストールするためのスクリプトです。
 * open_jtalk.rb
