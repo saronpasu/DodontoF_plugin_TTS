@@ -40,7 +40,13 @@ echo "configuration hts_engine ... "
 ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
 echo "done."
 echo "build hts_engine ... "
-make
+
+if FreeBSD != `uname`; then
+  make
+elif
+  gmake
+fi
+
 echo "done."
 cd $WORK_DIR
 mv open_jtalk-1.07 open_jtalk
@@ -51,7 +57,13 @@ cd open_jtalk
 echo "configuration open_jtalk ... "
 ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8
 echo "build open_jtalk build ... "
-make
+
+if FreeBSD != `uname`; then
+  make
+elif
+  gmake
+fi
+
 cd $WORK_DIR
 mv open_jtalk_dic_utf_8-1.07 $OPEN_JTALK_PATH/dic
 mkdir -p $OPEN_JTALK_PATH/share/voices
