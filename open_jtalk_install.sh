@@ -41,7 +41,7 @@ echo "configuration hts_engine ... "
 echo "done."
 echo "build hts_engine ... "
 
-if "FreeBSD" != `uname`; then
+if test "FreeBSD" != `uname`; then
   make
 else
   gmake
@@ -58,7 +58,7 @@ echo "configuration open_jtalk ... "
 ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8
 echo "build open_jtalk build ... "
 
-if "FreeBSD" != `uname`; then
+if test "FreeBSD" != `uname`; then
   make
 else
   gmake
