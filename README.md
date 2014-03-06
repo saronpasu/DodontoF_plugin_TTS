@@ -53,6 +53,9 @@ TTS plugin for DodontoF
     * サンプル入力用のテキストファイルです。
 * sample.rb
     * サンプル出力用のスクリプトです。
+* DodontoFServerTTS.rb
+    * どどんとふ用のTTSプラグインです。 DodontoFServer.rb を見様見真似でそれっぽく記述してみました。
+    * 詳しくはコメント参照。
 
 ## TODO
 長いので、別ファイルにまとめておきます。
