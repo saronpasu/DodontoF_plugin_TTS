@@ -43,6 +43,8 @@ TTS plugin for DodontoF
 * README.ja.txt
 * COPYING
 * AUTHOR
+* TODO.md
+* HISTORY.md
 * open_jtalk_install.sh
     * Open JTalk 環境をインストールするためのスクリプトです。
 * open_jtalk.rb
@@ -51,6 +53,9 @@ TTS plugin for DodontoF
     * サンプル入力用のテキストファイルです。
 * sample.rb
     * サンプル出力用のスクリプトです。
+
+## TODO
+長いので、別ファイルにまとめておきます。
 
 ## COPYING
 ### Open JTalk
