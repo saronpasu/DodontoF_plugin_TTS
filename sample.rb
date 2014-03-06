@@ -1,4 +1,5 @@
--*- encoding :utf-8 -*-
+#!/usr/bin/ruby -Ku
+#-*- encoding :utf-8 -*-
 
 =begin
 このスクリプトは、 Open JTalk 環境が正しく導入されているかどうか。

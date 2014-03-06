@@ -1,4 +1,4 @@
--*- encoding :utf-8 -*-
+#-*- encoding :utf-8 -*-
 
 # 名前空間の重複防止のため、モジュール化しています。
 module OPEN_JTalk
