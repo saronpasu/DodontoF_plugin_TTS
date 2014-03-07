@@ -41,18 +41,18 @@ echo "configuration hts_engine ... "
 #################################################
 #### cross compile for other linux server    ####
 #################################################
-#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-linux-gnu --with-newlib
+#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu --target=x86_64-pc-linux-gnu --with-newlib
 
 #################################################
 #### cross compile for sakura rental server  ####
 #################################################
-#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-freebsd9.1 --with-newlib
+#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu --target=x86_64-pc-freebsd9.1 --with-newlib
 
 # native build.
 if "FreeBSD" != `uname`; then
-  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-freebsd9.1 --host=x86_64-pc-freebsd9.1
 else
-  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu
 fi
 
 
@@ -62,7 +62,8 @@ echo "build hts_engine ... "
 if test "FreeBSD" != `uname`; then
   make
 else
-  gmake
+  make
+#  gmake
 fi
 
 echo "done."
@@ -87,7 +88,7 @@ echo "configuration open_jtalk ... "
 
 # native build.
 if "FreeBSD" != `uname`; then
-  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-freebsd9.1 --host=x86_64-unknown-freebsd9.1
 else
   ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
 fi
@@ -97,7 +98,8 @@ echo "build open_jtalk build ... "
 if test "FreeBSD" != `uname`; then
   make
 else
-  gmake
+  make
+#  gmake
 fi
 
 cd $WORK_DIR
