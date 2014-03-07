@@ -37,7 +37,25 @@ mv hts_engine_API-1.08 hts_engine
 HTS_ENGINE_PATH=$PWD/hts_engine
 cd hts_engine/
 echo "configuration hts_engine ... "
-./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
+
+#################################################
+#### cross compile for other linux server    ####
+#################################################
+#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-linux-gnu --with-newlib
+
+#################################################
+#### cross compile for sakura rental server  ####
+#################################################
+#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-freebsd9.1 --with-newlib
+
+# native build.
+if "FreeBSD" != `uname`; then
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+else
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+fi
+
+
 echo "done."
 echo "build hts_engine ... "
 
@@ -55,7 +73,25 @@ mkdir -p $WORK_DIR/open_jtalk/doc
 OPEN_JTALK_PATH=$PWD/open_jtalk
 cd open_jtalk
 echo "configuration open_jtalk ... "
-./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8
+
+#################################################
+#### cross compile for other linux server    ####
+#################################################
+#./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-linux-gnu --with-newlib
+
+#################################################
+#### cross compile for sakura rental server  ####
+#################################################
+#./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-freebsd9.1 --with-newlib
+
+
+# native build.
+if "FreeBSD" != `uname`; then
+  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+else
+  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+fi
+
 echo "build open_jtalk build ... "
 
 if test "FreeBSD" != `uname`; then
