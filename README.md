@@ -51,12 +51,21 @@ TTS plugin for DodontoF
 * HISTORY.md
 * open_jtalk_install.sh
     * Open JTalk 環境をインストールするためのスクリプトです。
+    * [*注意事項*]
+        * さくらレンタルサーバは、FreeBSD9.1を採用しています。
+        * FreeBSD9.1 環境では、 HTS_EngineAPI は、 v0.6 以下でしか動作しません。
+        * また、 Open JTalk は v0.5 以下でしか動作しません。
+        * それ以外の環境では、最新バージョン(HTS_engineAPI v0.8/OpenJTalk v0.7)で動作します。
+        * インストールスクリプトでは、環境に合わせたバージョンが導入されます。
+    * この問題は[*未解決*]です。
 * open_jtalk.rb
     * Open JTalk の ruby ラッパーです。
 * sample.txt
     * サンプル入力用のテキストファイルです。
 * sample.rb
     * サンプル出力用のスクリプトです。
+* sample.sh
+    * サンプル出力用のシェルスクリプトです。前述の sample.rb を実行します。
 * DodontoFServerTTS.rb
     * どどんとふ用のTTSプラグインです。 DodontoFServer.rb を見様見真似でそれっぽく記述してみました。
     * 詳しくはコメント参照。

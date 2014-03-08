@@ -2,16 +2,46 @@
 
 echo "setup Open JTalk packages."
 WORK_DIR=`pwd`
+UNAME=`uname`
 
 #: << '#_comment_out'
 echo "download hts_engine ... "
-wget http://jaist.dl.sourceforge.net/project/hts-engine/hts_engine%20API/hts_engine_API-1.08/hts_engine_API-1.08.tar.gz
+
+####################################################
+#### FreeBSD 9.1 only hts_engine_API v0.6 older ####
+####################################################
+if [ "$UNAME" = "FreeBSD" ]; then
+  wget wget http://jaist.dl.sourceforge.net/project/hts-engine/hts_engine%20API/hts_engine_API-1.06/hts_engine_API-1.06.tar.gz
+else
+  wget http://jaist.dl.sourceforge.net/project/hts-engine/hts_engine%20API/hts_engine_API-1.08/hts_engine_API-1.08.tar.gz
+fi
+
 echo "done."
 echo "download Open JTalk ..."
-wget http://jaist.dl.sourceforge.net/project/open-jtalk/Open%20JTalk/open_jtalk-1.07/open_jtalk-1.07.tar.gz
+
+####################################################
+#### FreeBSD 9.1 only open_jtalk v0.5 older     ####
+####################################################
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  wget http://jaist.dl.sourceforge.net/project/open-jtalk/Open%20JTalk/open_jtalk-1.05/open_jtalk-1.05.tar.gz
+else
+  wget http://jaist.dl.sourceforge.net/project/open-jtalk/Open%20JTalk/open_jtalk-1.07/open_jtalk-1.07.tar.gz
+fi
+
 echo "done."
 echo "download Open JTalk UTF-8 dict."
-wget http://jaist.dl.sourceforge.net/project/open-jtalk/Dictionary/open_jtalk_dic-1.07/open_jtalk_dic_utf_8-1.07.tar.gz
+
+####################################################
+#### FreeBSD 9.1 only open_jtalk v0.5 older     ####
+####################################################
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  wget http://jaist.dl.sourceforge.net/project/open-jtalk/Dictionary/open_jtalk_dic-1.05/open_jtalk_dic_utf_8-1.05.tar.gz
+else
+  wget http://jaist.dl.sourceforge.net/project/open-jtalk/Dictionary/open_jtalk_dic-1.07/open_jtalk_dic_utf_8-1.07.tar.gz
+fi
+
 echo "done."
 echo "download MMDAgent_Example ..."
 wget http://jaist.dl.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.4/MMDAgent_Example-1.4.zip
@@ -20,90 +50,135 @@ wget http://jaist.dl.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_
 
 echo "uncompress packages."
 echo "uncompress hts_engine ... "
-tar zxf hts_engine_API-1.08.tar.gz
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  tar zxf hts_engine_API-1.06.tar.gz
+else
+  tar zxf hts_engine_API-1.08.tar.gz
+fi
+
 echo "done."
 echo "uncompress open_jtalk ... "
-tar zxf open_jtalk-1.07.tar.gz
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  tar zxf open_jtalk-1.05.tar.gz
+else
+  tar zxf open_jtalk-1.07.tar.gz
+fi
+
 echo "done."
 echo "uncompress open_jtalk_dic_utf_8."
-tar zxf open_jtalk_dic_utf_8-1.07.tar.gz
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  tar zxf open_jtalk_dic_utf_8-1.05.tar.gz
+else
+  tar zxf open_jtalk_dic_utf_8-1.07.tar.gz
+fi
+
 echo "done."
 echo "uncompress MMDAgent-Example ... "
 unzip -o MMDAgent_Example-1.4.zip
 echo "done."
 
+#: << '#_comment_out'
+
 echo "build to packages."
-mv hts_engine_API-1.08 hts_engine
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  mv hts_engine_API-1.06 hts_engine
+else
+  mv hts_engine_API-1.08 hts_engine
+fi
+
 HTS_ENGINE_PATH=$PWD/hts_engine
 cd hts_engine/
 echo "configuration hts_engine ... "
 
+: << '#_comment_out'
 #################################################
 #### cross compile for other linux server    ####
 #################################################
-#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu --target=x86_64-pc-linux-gnu --with-newlib
+#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --target=x86_64-pc-linux-gnu
 
 #################################################
 #### cross compile for sakura rental server  ####
 #################################################
-#./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu --target=x86_64-pc-freebsd9.1 --with-newlib
+./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --host=x86_64-pc-freebsd9.1 --target=x86_64-pc-freebsd9.1
+#_comment_out
 
+
+#: << '#_comment_out'
 # native build.
-if "FreeBSD" != `uname`; then
-  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-freebsd9.1 --host=x86_64-pc-freebsd9.1
+if [ "$UNAME" = "FreeBSD" ]; then
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
 else
-  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH --build=x86_64-pc-linux-gnu --host=x86_64-pc-gnu
+  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
 fi
+#_comment_out
 
 
 echo "done."
 echo "build hts_engine ... "
 
-if test "FreeBSD" != `uname`; then
-  make
+if [ "$UNAME" = "FreeBSD" ]; then
+  gmake
 else
   make
-#  gmake
 fi
 
 echo "done."
 cd $WORK_DIR
-mv open_jtalk-1.07 open_jtalk
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  mv open_jtalk-1.05 open_jtalk
+else
+  mv open_jtalk-1.07 open_jtalk
+fi
+
 mkdir -p $WORK_DIR/open_jtalk/data
 mkdir -p $WORK_DIR/open_jtalk/doc
 OPEN_JTALK_PATH=$PWD/open_jtalk
 cd open_jtalk
 echo "configuration open_jtalk ... "
 
+: << '#_comment_out'
 #################################################
 #### cross compile for other linux server    ####
 #################################################
-#./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-linux-gnu --with-newlib
+#./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --target=x86_64-pc-linux-gnu
 
 #################################################
 #### cross compile for sakura rental server  ####
 #################################################
-#./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu --target=x86_64-unknown-freebsd9.1 --with-newlib
+./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8  --host=x86_64-pc-freebsd9.1 --target=x86_64-pc-freebsd9.1
+#_comment_out
 
 
+#: << '#_comment_out'
 # native build.
-if "FreeBSD" != `uname`; then
-  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-freebsd9.1 --host=x86_64-unknown-freebsd9.1
+if [ "$UNAME" = "FreeBSD" ]; then
+  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib
 else
-  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --with-charset=UTF-8 --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-gnu
+  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib
 fi
+#_comment_out
 
 echo "build open_jtalk build ... "
 
-if test "FreeBSD" != `uname`; then
-  make
+if [ "$UNAME" = "FreeBSD" ]; then
+  gmake
 else
   make
-#  gmake
 fi
 
 cd $WORK_DIR
-mv open_jtalk_dic_utf_8-1.07 $OPEN_JTALK_PATH/dic
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  mv open_jtalk_dic_utf_8-1.05 $OPEN_JTALK_PATH/dic
+else
+  mv open_jtalk_dic_utf_8-1.07 $OPEN_JTALK_PATH/dic
+fi
+
 mkdir -p $OPEN_JTALK_PATH/share/voices
 echo "hts_voice file move from MMDAgent-Example."
 cd MMDAgent_Example-1.4/Voice/mei
@@ -113,13 +188,25 @@ cd $WORK_DIR
 
 #: << '#_comment_out'
 echo "remove archives ..."
-rm -rf hts_engine_API-1.08
-rm -r hts_engine_API-1.08.tar.gz
-rm -rf open_jtalk-1.07
-rm -r open_jtalk-1.07.tar.gz
-rm -r open_jtalk_dic_utf_8-1.07.tar.gz
-rm -rf MMDAgent_Example-1.4
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  rm -r hts_engine_API-1.06.tar.gz
+  rm -rf hts_engine_API-1.06
+  rm -r open_jtalk-1.05.tar.gz
+  rm -rf open_jtalk-1.05
+  rm -r open_jtalk_dic_utf_8-1.05.tar.gz
+  rm -rf open_jtalk_dic_utf_8-1.05
+else
+  rm -r hts_engine_API-1.08.tar.gz
+  rm -rf hts_engine_API-1.08
+  rm -r open_jtalk-1.07.tar.gz
+  rm -rf open_jtalk-1.07
+  rm -r open_jtalk_dic_utf_8-1.07.tar.gz
+  rm -rf open_jtalk_dic_utf_8-1.07
+fi
+
 rm -r MMDAgent_Example-1.4.zip
+rm -rf MMDAgent_Example-1.4
 echo "done."
 
 echo "Open JTalk setup finish."
