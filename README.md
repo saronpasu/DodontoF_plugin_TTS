@@ -50,7 +50,7 @@ TTS plugin for DodontoF
     * [*最終更新: 2014-03-10*]
 
 ## さくらレンタルサーバ ライトプラン向け
-* リリースページ(https://github.com/saronpasu/DodontoF_plugin_TTS/releases)から
+* リリースページ(https://github.com/saronpasu/DodontoF_plugin_TTS/releases) から
 * Support for Sakura rental Server という内容のものをダウンロードして下さい。
 * 実行ファイルを含むパッケージですので。ビルドする必要はありません。
 
