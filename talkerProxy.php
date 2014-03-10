@@ -50,10 +50,9 @@ fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];
 // $tts_url = ereg_replace('DodontoF\.swf', '', $referer);
-$webif_url = ereg_replace('\.swf', 'Server.rb',$referer);
+$url = ereg_replace('DodontoF\.swf', 'tts.rb', $referer);
 
 $data = array(
-    'webif' => 'getTTS',
     'input_file' => 'tts.txt',
     'output_file' => 'tts.wav',
 );
