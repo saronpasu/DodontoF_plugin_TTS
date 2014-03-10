@@ -36,12 +36,15 @@ TTS plugin for DodontoF
     * $ chmod +x open_jtalk_install.sh
 3. Open JTalk インストールスクリプトを実行する。(root 権限でなくても良い)
     * $ ./open_jtalk_install.sh
+        * 実行すると、 open_jtalk というディレクトリと hts_engine というディレクトリができます。
+        * どどんとふの実行環境に合わせて、これらのディレクトリをまるごと移動して下さい。
+        * [*注意事項*] open_jtalk と hts_engine は同じディレクトリで動作するようにしています。
 4. サンプルスクリプトで動作確認をしてみる。
     * $ chmod +x sample.rb
     * $ ruby sample.rb
     * これでエラーがでる場合は、次の内容を実行してみて下さい。
     * $ chmod +x sample.sh
-    * $ ./sample.wav
+    * $ ./sample.sh
         * この結果、 sample.txt の内容が、 sample.wav 音声ファイルとして出力されれば
         * Open JTalk 環境は正常に動作しています。
 5. ここから先はまだ開発途中です。しばらくお待ちください。
