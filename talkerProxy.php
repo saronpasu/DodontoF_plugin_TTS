@@ -49,11 +49,11 @@ fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];
-$tts_url = ereg_replace('DodontoF\.swf', '', $referer);
+// $tts_url = ereg_replace('DodontoF\.swf', '', $referer);
 $webif_url = ereg_replace('\.swf', 'Server.rb',$referer);
 
 $data = array(
-    'webif' => 'createTTS',
+    'webif' => 'getTTS',
     'input_file' => 'tts.txt',
     'output_file' => 'tts.wav',
 );
@@ -61,51 +61,15 @@ $headers = array(
     'User-Agent: Mozilla/5.5'
 );
 $options = array('http' => array(
-    'method' => 'POST',
-    'content' => http_build_query($data),
-    'header' => implode("¥r¥n", $headers),
-));
-$contents = file_get_contents($webif_url, false, stream_context_create($options));
-
-$data_url = $tts_url . "tts.wav";
-
-$options = array('http' => array(
     'method' => 'GET',
     'content' => http_build_query($data),
     'header' => implode("¥r¥n", $headers),
 ));
 
 //print "$url\n";
-$fp = @fopen($tts_url, 'r', false, $context);
+$fp = @fopen($webif_url, 'r', false, $context);
 if($fp){
 	fpassthru($fp);
 	fclose($fp);
 }
-
-$data = array(
-    'webif' => 'deleteTTS',
-    'target_file' => 'tts.txt',
-);
-
-$options = array('http' => array(
-    'method' => 'POST',
-    'content' => http_build_query($data),
-    'header' => implode("¥r¥n", $headers),
-));
-
-$contents = file_get_contents($webif_url, false, stream_context_create($options));
-
-$data = array(
-    'webif' => 'deleteTTS',
-    'target_file' => 'tts.wav',
-);
-
-$options = array('http' => array(
-    'method' => 'POST',
-    'content' => http_build_query($data),
-    'header' => implode("¥r¥n", $headers),
-));
-
-$contents = file_get_contents($webif_url, false, stream_context_create($options));
-
 ?>
