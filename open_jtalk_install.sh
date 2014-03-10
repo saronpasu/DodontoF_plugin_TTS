@@ -247,6 +247,7 @@ cd $WORK_DIR
 
 mv sox-14.4.1 sox
 $SOX_PATH = $WORK_DIR+"/sox"
+cd sox
 echo "configuration SoX ... "
 ./configure --prefix=$SOX_PATH
 echo "done."
