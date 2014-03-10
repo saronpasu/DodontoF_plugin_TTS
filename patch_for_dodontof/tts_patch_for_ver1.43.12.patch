@@ -1,6 +1,6 @@
-diff -crN DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb
-*** DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb	2014-03-10 17:50:36.381813612 +0900
---- DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb	2014-03-08 16:36:10.000000000 +0900
+diff -crN DodontoF_tts/DodontoFServer.rb DodontoF_org/DodontoFServer.rb
+*** DodontoF_tts/DodontoFServer.rb	2014-03-10 17:50:36.381813000 +0900
+--- DodontoF_org/DodontoFServer.rb	2014-03-08 16:36:10.000000000 +0900
 ***************
 *** 820,828 ****
         ['changeEffectsAll', hasNoReturn], 
@@ -27,9 +27,9 @@ diff -crN DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb DodontoF_WebSet/pu
   end
     
 --- 6470,6475 ----
-diff -crN DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb
-*** DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb	2014-03-10 17:50:02.389813039 +0900
---- DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb	2014-03-08 16:36:44.000000000 +0900
+diff -crN DodontoF_tts/src_ruby/config.rb DodontoF_org/src_ruby/config.rb
+*** DodontoF_tts/src_ruby/config.rb	2014-03-10 17:50:02.389813000 +0900
+--- DodontoF_org/src_ruby/config.rb	2014-03-08 16:36:44.000000000 +0900
 ***************
 *** 187,195 ****
   #あ、あとPHP環境必須なんでその辺は頑張って下さい。
@@ -42,9 +42,9 @@ diff -crN DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb DodontoF_WebSet/p
   $recordMaxCount = 5
   
 --- 187,192 ----
-diff -crN DodontoF_TTS/public_html/DodontoF/talkerProxy.php DodontoF_WebSet/public_html/DodontoF/talkerProxy.php
-*** DodontoF_TTS/public_html/DodontoF/talkerProxy.php	2014-03-10 19:20:07.781904307 +0900
---- DodontoF_WebSet/public_html/DodontoF/talkerProxy.php	2012-11-23 16:19:27.000000000 +0900
+diff -crN DodontoF_tts/talkerProxy.php DodontoF_org/talkerProxy.php
+*** DodontoF_tts/talkerProxy.php	2014-03-10 19:20:07.781904000 +0900
+--- DodontoF_org/talkerProxy.php	2012-11-23 16:19:27.000000000 +0900
 ***************
 *** 1,106 ****
 ! <?php
