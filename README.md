@@ -18,6 +18,7 @@ TTS plugin for DodontoF
 ## 導入に必要な環境
 * Unix
     * サーバ利用を前提としているため、OSXやWindowsOSは対象外です。
+    * FreeBSD9.1 には、旧バージョンの Open JTalkで対応しています。
 * wget
 * tar
 * unzip
@@ -38,10 +39,23 @@ TTS plugin for DodontoF
 4. サンプルスクリプトで動作確認をしてみる。
     * $ chmod +x sample.rb
     * $ ruby sample.rb
+    * これでエラーがでる場合は、次の内容を実行してみて下さい。
+    * $ chmod +x sample.sh
+    * $ ./sample.wav
         * この結果、 sample.txt の内容が、 sample.wav 音声ファイルとして出力されれば
         * Open JTalk 環境は正常に動作しています。
 5. ここから先はまだ開発途中です。しばらくお待ちください。
 
+
+    * [*最終更新: 2014-03-10*]
+
+## さくらレンタルサーバ ライトプラン向け
+    * リリース[https://github.com/saronpasu/DodontoF_plugin_TTS/releases] ページから
+    * Support for Sakura rental Server という内容のものをダウンロードして下さい。
+    * 実行ファイルを含むパッケージですので。ビルドする必要はありません。
+
+
+    * [*最終更新: 2014-03-10*]
 
 ## パッケージに含まれるもの
 * README.md
