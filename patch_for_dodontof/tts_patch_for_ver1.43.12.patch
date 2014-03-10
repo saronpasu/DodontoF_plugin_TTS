@@ -1,0 +1,172 @@
+diff -crN DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb
+*** DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb	2014-03-10 17:50:36.381813612 +0900
+--- DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb	2014-03-08 16:36:10.000000000 +0900
+***************
+*** 820,828 ****
+        ['changeEffectsAll', hasNoReturn], 
+        ['removeEffect', hasNoReturn], 
+        ['changeImageTags', hasNoReturn], 
+-       
+-       ['createTTS', hasReturn],
+-       ['deleteTTS', hasReturn],
+      ]
+      
+      commands.each do |command, commandType|
+--- 820,825 ----
+***************
+*** 6473,6483 ****
+      #通常のテキストファイル形式
+      main(cgiParams)
+    end
+- 
+-   if( $useOpenJTalk == true )
+-     # TTS プラグインを読み込む
+-     require 'DodontoFServerTTS.rb'
+-   end
+    
+  end
+    
+--- 6470,6475 ----
+diff -crN DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb
+*** DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb	2014-03-10 17:50:02.389813039 +0900
+--- DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb	2014-03-08 16:36:44.000000000 +0900
+***************
+*** 187,195 ****
+  #あ、あとPHP環境必須なんでその辺は頑張って下さい。
+  $canTalk = true
+  
+- #読み上げ機能(Open JTalk版)の有効／無効(true/false)。サーバに負荷が掛かるので有効化は慎重に
+- $useOpenJTalk = true
+- 
+  #差分記録方式で保存する保存件数
+  $recordMaxCount = 5
+  
+--- 187,192 ----
+diff -crN DodontoF_TTS/public_html/DodontoF/talkerProxy.php DodontoF_WebSet/public_html/DodontoF/talkerProxy.php
+*** DodontoF_TTS/public_html/DodontoF/talkerProxy.php	2014-03-10 19:20:07.781904307 +0900
+--- DodontoF_WebSet/public_html/DodontoF/talkerProxy.php	2012-11-23 16:19:27.000000000 +0900
+***************
+*** 1,106 ****
+! <?php
+! 
+! date_default_timezone_set('Asia/Tokyo');
+! mb_internal_encoding("UTF-8");
+! mb_regex_encoding('UTF-8');
+! 
+! $queryText = (isset($_POST['queryText']) && $_POST['queryText']) ? $_POST['queryText'] : 'undefined';
+! 
+! $url_replaced = $queryText;
+! 
+! if($url_replaced == 'undefined'){ print ''; exit; }
+! 
+! $url_replaced_decoded   = urldecode($url_replaced);
+! 
+! // 固有名詞置換
+! // Elysion関連
+! $url_replaced_decoded = preg_replace('/elysion/i',' えりゅしおん ',$url_replaced_decoded);
+! 
+! $url_replaced_decoded = preg_replace('/「/ui','・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/」/ui','・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/^：(¥d+) ¥((¥d+D%*¥d+).*/',' だいすろーる・$2・合計・$1 ',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/^：+/ui','',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]+$/ui','$1・わら ',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]{2,}/ui','$1・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/[¥.。．・…]{2,}/ui','・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/…/ui','・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/(ftp|http|https)¥:¥/¥/.*/ui','・$1のurlです・',$url_replaced_decoded);
+! 
+! // 辞書系
+! $url_replaced_decoded = preg_replace('/↑/ui','・うえ・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/↓/ui','・した・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/←/ui','・ひだり・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/→/ui','・みぎ・',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/欠片/ui','かけら',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/SANチェック/ui','さんちぇっく',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/ＳＡＮチェック/ui','さんちぇっく',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/百合展開/ui','きましたわー',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/百合/ui','ゆり',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/ktkr/ui','きたこれ',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/ｋｔｋｒ/ui','きたこれ',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/ksk/ui','かそく',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/ｋｓｋ/ui','かそく',$url_replaced_decoded);
+! $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replaced_decoded);
+! 
+! $fp = fopen('tts.txt', 'w');
+! fwrite($fp ,$url_replaced_decoded);
+! 
+! $referer = $_SERVER["HTTP_REFERER"];
+! $tts_url = preg_replace('/DodontoF¥.swf/ui', '', $referer);
+! $webif_url = preg_replace('/¥.swf/ui', 'Server.rb',$referer);
+! 
+! $data = array(
+!     'webif' => 'createTTS',
+!     'input_file' => 'tts.txt',
+!     'output_file' => 'tts.wav',
+! );
+! $headers = array(
+!     'User-Agent: Mozilla/5.5'
+! );
+! $options = array('http' => array(
+!     'method' => 'POST',
+!     'content' => http_build_query($data),
+!     'header' => implode("¥r¥n", $headers),
+! ));
+! $contents = file_get_contents($webif_url, false, stream_context_create($options));
+! 
+! $data_url = $tts_url . "tts.wav";
+! 
+! $options = array('http' => array(
+!     'method' => 'GET',
+!     'content' => http_build_query($data),
+!     'header' => implode("¥r¥n", $headers),
+! ));
+! 
+! $context = stream_context_create($option);
+! $fp = fopen($data_url, 'r', false, $context);
+! fpassthru($fp);
+! fclose($fp);
+! 
+! $data = array(
+!     'webif' => 'deleteTTS',
+!     'target_file' => 'tts.txt',
+! );
+! 
+! $options = array('http' => array(
+!     'method' => 'POST',
+!     'content' => http_build_query($data),
+!     'header' => implode("¥r¥n", $headers),
+! ));
+! 
+! $contents = file_get_contents($webif_url, false, stream_context_create($options));
+! 
+! $data = array(
+!     'webif' => 'deleteTTS',
+!     'target_file' => 'tts.wav',
+! );
+! 
+! $options = array('http' => array(
+!     'method' => 'POST',
+!     'content' => http_build_query($data),
+!     'header' => implode("¥r¥n", $headers),
+! ));
+! 
+! $contents = file_get_contents($webif_url, false, stream_context_create($options));
+! 
+! ?>
+--- 1,16 ----
+! <?php
+! $queryText = (isset($_POST['queryText']) && $_POST['queryText']) ? $_POST['queryText'] : 'undefined';
+! $url = "http://translate.google.com/translate_tts?tl=ja&q=" . $queryText;
+! 
+! $option = array(
+!     'http'=>array(
+!         'method'=>"GET",
+!         'header' => "User-Agent:Mozilla/5.5\r\n". //Mozilla���w��
+!                     "Content-type: application/x-www-form-urlencoded\r\n".
+!                     "Accept-Language: ja-jp,en;q=0.5\r\n".
+!                     "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" ));
+! $context = stream_context_create($option);
+! $fp = fopen($url, 'r', false, $context);
+! fpassthru($fp);
+! fclose($fp);
+! ?>
