@@ -43,10 +43,12 @@ $options = array('http' => array(
     'header' => implode("¥r¥n", $headers),
 ));
 
-$context = stream_context_create($option);
-$fp = fopen($data_url, 'r', false, $context);
-fpassthru($fp);
-fclose($fp);
+//print "$url\n";
+$fp = @fopen($url, 'r', false, $context);
+if($fp){
+	fpassthru($fp);
+	fclose($fp);
+}
 
 $data = array(
     'webif' => 'deleteTTS',
