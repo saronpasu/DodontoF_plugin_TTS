@@ -825,6 +825,7 @@ class DodontoFServer
       
       ['createTTS', hasReturn],
       ['deleteTTS', hasReturn],
+      ['getTTS', hasReturn],
     ]
     
     commands.each do |command, commandType|
@@ -1564,11 +1565,13 @@ class DodontoFServer
     # create TTS voice file.
     logging("create TTS voice file: "+input_file)
     open_jtalk(input_file, output_file)
-    logging("getWebIfTTS end")
+    FileUtils.remove_file(input_file) if FileTest.exists?(target_file)
     
     require 'webrick'
     response = Webrick::HTTPResponse.new( { :HTTPVersoion => "1.1" } )
     tts_file = open(output_file, 'r+b')
+
+    logging("getWebIfTTS end")
     response.body = tts_file
 
     return response
