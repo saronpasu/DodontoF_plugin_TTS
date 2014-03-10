@@ -54,13 +54,18 @@ if [ "$UNAME" = "FreeBSD" ]; then
 else
   wget http://jaist.dl.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.4/MMDAgent_Example-1.4.zip
 fi
-
 #_comment_out
 
+echo "download lame ... "
+wget http://jaist.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+echo "done."
 
 
 echo "uncompress packages."
 echo "uncompress hts_engine ... "
+
+#: << '#_comment_out'
+
 
 if [ "$UNAME" = "FreeBSD" ]; then
   tar zxf hts_engine_API-1.06.tar.gz
@@ -95,12 +100,20 @@ else
   unzip -o MMDAgent_Example-1.4.zip
 fi
 
+echo "done."
 
+#_comment_out
+
+
+echo "uncompress lame ... "
+tar zxf lame-3.99.5.tar.gz
 echo "done."
 
 #: << '#_comment_out'
 
 echo "build to packages."
+
+#: << '#_comment_out'
 
 if [ "$UNAME" = "FreeBSD" ]; then
   mv hts_engine_API-1.06 hts_engine
@@ -132,7 +145,7 @@ if [ "$UNAME" = "FreeBSD" ]; then
 else
   ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
 fi
-#_comment_out
+##_comment_out
 
 
 echo "done."
@@ -179,7 +192,7 @@ if [ "$UNAME" = "FreeBSD" ]; then
 else
   ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib
 fi
-#_comment_out
+##_comment_out
 
 echo "build open_jtalk build ... "
 
@@ -208,6 +221,29 @@ else
   cp mei_normal.htsvoice $OPEN_JTALK_PATH/share/voices
 fi
 
+echo "done."
+
+#_comment_out
+
+cd $WORK_DIR
+
+mv lame-3.99.5 lame
+$LAME_PATH = $WORK_DIR+'/lame'
+cd lame
+echo "configuration lame ... "
+./configure --prefix=$LAME_PATH 
+echo "done."
+
+echo "build lame ... "
+if [ "$UNAME" = "FreeBSD" ]; then
+  gmake
+  gmake install
+else
+  make
+  make install
+fi
+
+
 
 echo "done."
 cd $WORK_DIR
@@ -234,6 +270,8 @@ else
   rm -r MMDAgent_Example-1.4.zip
   rm -rf MMDAgent_Example-1.4
 fi
+rm -r lame-3.99.5.tar.gz
+rm -rf lame-3.99.5
 
 echo "done."
 

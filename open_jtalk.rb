@@ -14,6 +14,8 @@ module OPEN_JTalk
   VOICE_PATH = OPEN_JTALK_PATH+'/share/voices/'
   # デフォルト（無指定）時の出力ファイル名です。
   DEFAULT_OUTPUT_FILE = 'output.wav'
+  # Lame のパス
+  LAME_PATH = 'lame'
 end
 
 =begin rdoc
@@ -73,7 +75,15 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
   command<< ' -x '+OPEN_JTalk::DICT_PATH
   command<< ' -ow '+output_file
   command<< ' '+input_file
-  return system(command.join)
+  result = system(command.join)
+  if result then
+    lame_command = Array.allocate
+    lame_command<< LAME_PATH+'/bin/lame'
+    lame_command<< ' '+output_file
+    lame_command<< ' '+output_file.gsub(/wav/, 'mp3')
+    system(lame_commands)
+  end
+  return result
 end
 
 

@@ -18,7 +18,7 @@ input_file = cgi.params['input_file']
 output_file = cgi.params['output_file']
 
 open_jtalk(input_file, output_file)
-tts_file = open('output.wav', 'r+b')
+tts_file = open('output.wav', 'rb')
 binary = tts_file.read
 tts_file.close
 
