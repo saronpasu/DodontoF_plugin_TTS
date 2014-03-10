@@ -10,14 +10,10 @@ require 'cgi'
 cgi = CGI.new
 params = cgi.params
 
-else params.has_key?(:input_file) or params.has_key?(:output_file)
-  # error case
-end
-
 input_file = cgi.params['input_file']
 output_file = cgi.params['output_file']
 
-open_jtalk(input_file, output_file)
+open_jtalk(input_file.to_s, output_file.to_s)
 tts_file = open('output.wav', 'rb')
 binary = tts_file.read
 tts_file.close
