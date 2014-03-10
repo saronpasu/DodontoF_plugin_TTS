@@ -19,9 +19,9 @@ fi
 echo "done."
 echo "download Open JTalk ..."
 
-####################################################
-#### FreeBSD 9.1 only open_jtalk v0.5 older     ####
-####################################################
+######################################################
+#### FreeBSD 9.1 only open_jtalk v0.5 older       ####
+######################################################
 
 if [ "$UNAME" = "FreeBSD" ]; then
   wget http://jaist.dl.sourceforge.net/project/open-jtalk/Open%20JTalk/open_jtalk-1.05/open_jtalk-1.05.tar.gz
@@ -32,9 +32,9 @@ fi
 echo "done."
 echo "download Open JTalk UTF-8 dict."
 
-####################################################
-#### FreeBSD 9.1 only open_jtalk v0.5 older     ####
-####################################################
+######################################################
+#### FreeBSD 9.1 only open_jtalk v0.5 older       ####
+######################################################
 
 if [ "$UNAME" = "FreeBSD" ]; then
   wget http://jaist.dl.sourceforge.net/project/open-jtalk/Dictionary/open_jtalk_dic-1.05/open_jtalk_dic_utf_8-1.05.tar.gz
@@ -44,9 +44,20 @@ fi
 
 echo "done."
 echo "download MMDAgent_Example ..."
-wget http://jaist.dl.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.4/MMDAgent_Example-1.4.zip
+
+######################################################
+#### FreeBSD 9.1 only MMDAgent-Example v1.3 older ####
+######################################################
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  wget http://ftp.jaist.ac.jp/pub/sourceforge/m/mm/mmdagent/MMDAgent_Example/MMDAgent_Example-1.3/MMDAgent_Example-1.3.zip
+else
+  wget http://jaist.dl.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.4/MMDAgent_Example-1.4.zip
+fi
 
 #_comment_out
+
+
 
 echo "uncompress packages."
 echo "uncompress hts_engine ... "
@@ -77,7 +88,14 @@ fi
 
 echo "done."
 echo "uncompress MMDAgent-Example ... "
-unzip -o MMDAgent_Example-1.4.zip
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  unzip -o MMDAgent_Example-1.3.zip
+else
+  unzip -o MMDAgent_Example-1.4.zip
+fi
+
+
 echo "done."
 
 #: << '#_comment_out'
@@ -181,8 +199,16 @@ fi
 
 mkdir -p $OPEN_JTALK_PATH/share/voices
 echo "hts_voice file move from MMDAgent-Example."
-cd MMDAgent_Example-1.4/Voice/mei
-cp mei_normal.htsvoice $OPEN_JTALK_PATH/share/voices
+
+if [ "$UNAME" = "FreeBSD" ]; then
+  mv MMDAgent_Example-1.3/Voice/mei_normal $OPEN_JTALK_PATH/share/voices/mei_normal
+
+else
+  cd MMDAgent_Example-1.4/Voice/mei
+  cp mei_normal.htsvoice $OPEN_JTALK_PATH/share/voices
+fi
+
+
 echo "done."
 cd $WORK_DIR
 
@@ -196,6 +222,8 @@ if [ "$UNAME" = "FreeBSD" ]; then
   rm -rf open_jtalk-1.05
   rm -r open_jtalk_dic_utf_8-1.05.tar.gz
   rm -rf open_jtalk_dic_utf_8-1.05
+  rm -r MMDAgent_Example-1.3.zip
+  rm -rf MMDAgent_Example-1.3
 else
   rm -r hts_engine_API-1.08.tar.gz
   rm -rf hts_engine_API-1.08
@@ -203,10 +231,10 @@ else
   rm -rf open_jtalk-1.07
   rm -r open_jtalk_dic_utf_8-1.07.tar.gz
   rm -rf open_jtalk_dic_utf_8-1.07
+  rm -r MMDAgent_Example-1.4.zip
+  rm -rf MMDAgent_Example-1.4
 fi
 
-rm -r MMDAgent_Example-1.4.zip
-rm -rf MMDAgent_Example-1.4
 echo "done."
 
 echo "Open JTalk setup finish."

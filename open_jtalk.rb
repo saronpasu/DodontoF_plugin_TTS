@@ -9,7 +9,9 @@ module OPEN_JTalk
   # Open JTalk の UTF-8 用辞書ディレクトリを指定して下さい。
   DICT_PATH = OPEN_JTALK_PATH+'/dic'
   # Open JTalk の 音声話者ファイルを指定して下さい。
-  VOICE_PATH = OPEN_JTALK_PATH+'/share/voices/mei_normal.htsvoice'
+  VOICE = 'mei_normal'
+  # Open JTalk の 音声話者パス
+  VOICE_PATH = OPEN_JTALK_PATH+'/share/voices/'
   # デフォルト（無指定）時の出力ファイル名です。
   DEFAULT_OUTPUT_FILE = 'output.wav'
 end
@@ -37,11 +39,37 @@ end
 =end
 def open_jtalk(input_file, output_file = nil, voice = nil)
   output_file ||= OPEN_JTalk::DEFAULT_OUTPUT_FILE
-  voice ||= OPEN_JTalk::VOICE_PATH
+  voice ||= 'mei_normal'
   command = Array.allocate
-  command<< OPEN_JTalk::OPEN_JTALK_PATH
-  command<< '/bin/open_jtalk'
-  command<< ' -m '+voice unless `uname`.match(/FreeBSD/)
+  command<< OPEN_JTalk::OPEN_JTALK_PATH+'/bin/open_jtalk'
+  unless `uname`.match(/FreeBSD/) then
+    command<< ' -m '+OPEN_JTalk::VOICE_PATH+voice+'.htsvoice'
+  else
+    command<< ' -td '+OPEN_JTalk::VOICE_PATH+voice+'/tree-dur.inf'
+    command<< ' -tm '+OPEN_JTalk::VOICE_PATH+voice+'/tree-mgc.inf'
+    command<< ' -tf '+OPEN_JTalk::VOICE_PATH+voice+'/tree-lf0.inf'
+    command<< ' -tl '+OPEN_JTalk::VOICE_PATH+voice+'/tree-lpf.inf'
+    command<< ' -md '+OPEN_JTalk::VOICE_PATH+voice+'/dur.pdf'
+    command<< ' -mm '+OPEN_JTalk::VOICE_PATH+voice+'/mgc.pdf'
+    command<< ' -mf '+OPEN_JTalk::VOICE_PATH+voice+'/lf0.pdf'
+    command<< ' -ml '+OPEN_JTalk::VOICE_PATH+voice+'/lpf.pdf'
+    command<< ' -dm '+OPEN_JTalk::VOICE_PATH+voice+'/mgc.win1'
+    command<< ' -dm '+OPEN_JTalk::VOICE_PATH+voice+'/mgc.win2'
+    command<< ' -dm '+OPEN_JTalk::VOICE_PATH+voice+'/mgc.win3'
+    command<< ' -df '+OPEN_JTalk::VOICE_PATH+voice+'/lf0.win1'
+    command<< ' -df '+OPEN_JTalk::VOICE_PATH+voice+'/lf0.win2'
+    command<< ' -df '+OPEN_JTalk::VOICE_PATH+voice+'/lf0.win3'
+    command<< ' -a 0.07'
+    command<< ' -u 0.0'
+    command<< ' -em '+OPEN_JTalk::VOICE_PATH+voice+'/tree-gv-mgc.inf'
+    command<< ' -ef '+OPEN_JTalk::VOICE_PATH+voice+'/tree-gv-lf0.inf'
+    command<< ' -cm '+OPEN_JTalk::VOICE_PATH+voice+'/gv-mgc.pdf'
+    command<< ' -cf '+OPEN_JTalk::VOICE_PATH+voice+'/gv-lf0.pdf'
+    command<< ' -jm 0.5'
+    command<< ' -jf 1.2'
+    command<< ' -k '+OPEN_JTalk::VOICE_PATH+voice+'/gv-switch.inf'
+    command<< ' -jl 1.0'
+  end
   command<< ' -x '+OPEN_JTalk::DICT_PATH
   command<< ' -ow '+output_file
   command<< ' '+input_file
