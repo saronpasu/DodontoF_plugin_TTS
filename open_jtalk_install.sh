@@ -58,7 +58,7 @@ fi
 
 echo "download lame ... "
 #wget http://ftp.jaist.ac.jp/pub/sourceforge/l/la/lame/lame/3.97/lame-3.97.tar.gz
-wget http://jaist.dl.sourceforge.net/project/lame/lame/3.90/lame3.90.tar.gz
+wget http://jaist.dl.sourceforge.net/project/lame/lame/3.70/lame3.70.tar.gz
 echo "done."
 
 
@@ -108,7 +108,7 @@ echo "done."
 
 
 echo "uncompress lame ... "
-tar zxf lame3.90.tar.gz
+tar zxf lame3.70.tar.gz
 echo "done."
 
 #: << '#_comment_out'
@@ -229,7 +229,7 @@ echo "done."
 
 cd $WORK_DIR
 
-mv lame-3.90 lame
+mv lame-3.70 lame
 $LAME_PATH = $WORK_DIR+'/lame'
 cd lame
 echo "configuration lame ... "
@@ -272,8 +272,8 @@ else
   rm -r MMDAgent_Example-1.4.zip
   rm -rf MMDAgent_Example-1.4
 fi
-rm -r lame3.90.tar.gz
-rm -rf lame-3.90
+rm -r lame3.70.tar.gz
+rm -rf lame-3.70
 
 echo "done."
 
