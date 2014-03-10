@@ -906,6 +906,8 @@ class DodontoFServer
       return sendWebIfCreateTTS
     when 'deleteTTS'
       return sendWebIfDeleteTTS
+    when 'getTTS'
+      return getWebIfTTS
     end
    
     loginOnWebInterface
@@ -1547,6 +1549,29 @@ class DodontoFServer
     logging("sendWebIfDeleteTTS end")
 
     return saveData
+  end
+  
+  # talkerProxy.php と TextTalker.as 向けに無理やり実装。
+  def getWebIfTTS
+    logging("getWebIfCreateTTS begin")
+    saveData = {}
+    
+    input_file = getRequestData('input_file')
+    output_file = getRequestData('output_file')
+    # 追加ボイスは未実装です。
+    # voice_type = getRequestData('voice_type')
+    
+    # create TTS voice file.
+    logging("create TTS voice file: "+input_file)
+    open_jtalk(input_file, output_file)
+    logging("getWebIfTTS end")
+    
+    require 'webrick'
+    response = Webrick::HTTPResponse.new( { :HTTPVersoion => "1.1" } )
+    tts_file = open(output_file, 'r+b')
+    response.body = tts_file
+
+    return response
   end
   
   def getHashValue(hash, key, default)
