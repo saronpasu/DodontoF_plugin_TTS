@@ -42,7 +42,7 @@ $url_replaced_decoded = preg_replace('/ksk/ui','かそく',$url_replaced_decoded
 $url_replaced_decoded = preg_replace('/ｋｓｋ/ui','かそく',$url_replaced_decoded);
 $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replaced_decoded);
 
-$fp = fopen('tts.txt', 'w');
+$fp = fopen('tts.txt', 'w+');
 fwrite($fp ,$url_replaced_decoded);
 fclose($fp);
 
