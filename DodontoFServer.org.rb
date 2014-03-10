@@ -36,11 +36,6 @@ if( $isFirstCgi )
   require 'cgiPatch_forFirstCgi'
 end
 
-if( $useOpenJTalk == true )
-  # TTS プラグインを読み込む
-  require 'DodontoFServerTTS.rb'
-end
-  
 require "config.rb"
 
 begin
@@ -825,9 +820,6 @@ class DodontoFServer
       ['changeEffectsAll', hasNoReturn], 
       ['removeEffect', hasNoReturn], 
       ['changeImageTags', hasNoReturn], 
-      
-      ['createTTS', hasReturn],
-      ['deleteTTS', hasReturn],
     ]
     
     commands.each do |command, commandType|
@@ -927,13 +919,6 @@ class DodontoFServer
       return getWebIfRefresh
     when 'getLoginUserInfo'
       return getWebIfLoginUserInfo
-    end
-
-    case commandName
-    when 'createTTS'
-      return sendWebIfCreateTTS
-    when 'deleteTTS'
-      return sendWebIfDeleteTTS
     end
     
     return {'result'=> "command [#{commandName}] is NOT found"}
@@ -1512,46 +1497,6 @@ class DodontoFServer
     end
     
     return result
-  end
-
-  # WEBIFのコマンドパーサ(case 文) から呼ばれるメソッド
-  # createTTS 辺りの名前で case 文判定していただけると良いかと思います。
-  # DodontoFServer#analizeCommand メソッドへ
-  # commands ハッシュ へ追加で ['createTTS', hasReturn] というのが望ましいかと。
-  def sendWebIfCreateTTS
-    logging("sendWebIfCreateTTS begin")
-    saveData = {}
-    
-    input_file = getRequestData('input_file')
-    output_file = getRequestData('output_file')
-    # 追加ボイスは未実装です。
-    # voice_type = getRequestData('voice_type')
-    
-    # create TTS voice file.
-    logging("create TTS voice file: "+report)
-    report = open_jtalk(input_file, output_file)
-    logging("sendWebIfCreateTTS end")
-
-    saveData['result'] = report
-    return saveData
-  end
-  
-  # WEBIFのコマンドパーサ(case 文) から呼ばれるメソッド
-  # deleteTTS 辺りの名前で case 文判定していただけると良いかと思います。
-  # DodontoFServer#analizeCommand メソッドへ
-  # commands ハッシュ へ追加で ['deleteTTS', hasReturn] というのが望ましいかと。
-  def sendWebIfDeleteTTS
-    logging("sendWebIfDeleteTTS begin")
-    saveData = {}
-    
-    target_file = getRequestData('target_file')
-    logging("delete TTS voice file.")
-    FileUtils.remove_file(target_file) if FileTest.exists?(target_file)
-    report = !FileTest.exists?(target_file)
-    logging("sendWebIfDeleteTTS end")
-
-    saveData['result'] = report
-    return saveData
   end
   
   def getHashValue(hash, key, default)
@@ -6525,6 +6470,7 @@ def executeDodontoServerCgi()
     #通常のテキストファイル形式
     main(cgiParams)
   end
+  
 end
   
 if( $0 === __FILE__ )
