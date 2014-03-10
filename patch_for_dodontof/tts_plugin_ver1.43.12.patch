@@ -1,0 +1,40 @@
+diff -ur DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb
+--- DodontoF_TTS/public_html/DodontoF/DodontoFServer.rb	2014-03-10 17:10:37.201773000 +0900
++++ DodontoF_WebSet/public_html/DodontoF/DodontoFServer.rb	2014-03-08 16:36:10.000000000 +0900
+@@ -820,9 +820,6 @@
+       ['changeEffectsAll', hasNoReturn], 
+       ['removeEffect', hasNoReturn], 
+       ['changeImageTags', hasNoReturn], 
+-      
+-      ['createTTS', hasReturn],
+-      ['deleteTTS', hasReturn],
+     ]
+     
+     commands.each do |command, commandType|
+@@ -6473,11 +6470,6 @@
+     #通常のテキストファイル形式
+     main(cgiParams)
+   end
+-
+-  if( $useTTS == true )
+-    # TTS プラグインを読み込む
+-    require 'DodontoFServerTTS.rb'
+-  end
+   
+ end
+   
+DodontoF_TTS/public_html/DodontoF のみに存在: DodontoFServer.tts.rb~
+diff -ur DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb
+--- DodontoF_TTS/public_html/DodontoF/src_ruby/config.rb	2014-03-10 17:10:27.921772000 +0900
++++ DodontoF_WebSet/public_html/DodontoF/src_ruby/config.rb	2014-03-08 16:36:44.000000000 +0900
+@@ -187,9 +187,6 @@
+ #あ、あとPHP環境必須なんでその辺は頑張って下さい。
+ $canTalk = true
+ 
+-#読み上げ機能(Open JTalk版)の有効／無効(true/false)。サーバに負荷が掛かるので有効化は慎重に
+-$useTTS = true
+-
+ #差分記録方式で保存する保存件数
+ $recordMaxCount = 5
+ 
+DodontoF_TTS/public_html/DodontoF/src_ruby のみに存在: config.tts.rb~
