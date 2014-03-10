@@ -36,6 +36,11 @@ if( $isFirstCgi )
   require 'cgiPatch_forFirstCgi'
 end
 
+if( $useOpenJTalk == true )
+  # TTS プラグインを読み込む
+  require 'DodontoFServerTTS.rb'
+end
+  
 require "config.rb"
 
 begin
@@ -6473,12 +6478,6 @@ def executeDodontoServerCgi()
     #通常のテキストファイル形式
     main(cgiParams)
   end
-
-  if( $useOpenJTalk == true )
-    # TTS プラグインを読み込む
-    require 'DodontoFServerTTS.rb'
-  end
-  
 end
   
 if( $0 === __FILE__ )
