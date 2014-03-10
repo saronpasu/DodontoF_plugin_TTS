@@ -229,7 +229,7 @@ echo "done."
 
 cd $WORK_DIR
 
-mv lame3.90 lame
+mv lame-3.90 lame
 $LAME_PATH = $WORK_DIR+'/lame'
 cd lame
 echo "configuration lame ... "
@@ -273,7 +273,7 @@ else
   rm -rf MMDAgent_Example-1.4
 fi
 rm -r lame3.90.tar.gz
-rm -rf lame3.90
+rm -rf lame-3.90
 
 echo "done."
 
