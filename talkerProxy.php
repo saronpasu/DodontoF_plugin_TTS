@@ -44,7 +44,7 @@ $options = array('http' => array(
 ));
 
 //print "$url\n";
-$fp = @fopen($url, 'r', false, $context);
+$fp = @fopen($tts_url, 'r', false, $context);
 if($fp){
 	fpassthru($fp);
 	fclose($fp);
