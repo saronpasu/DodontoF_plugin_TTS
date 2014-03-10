@@ -903,7 +903,14 @@ class DodontoFServer
     when 'getLoginInfo'
       return getWebIfLoginInfo
     end
-    
+
+    case commandName
+    when 'createTTS'
+      return sendWebIfCreateTTS
+    when 'deleteTTS'
+      return sendWebIfDeleteTTS
+    end
+   
     loginOnWebInterface
     
     case commandName
@@ -929,13 +936,6 @@ class DodontoFServer
       return getWebIfLoginUserInfo
     end
 
-    case commandName
-    when 'createTTS'
-      return sendWebIfCreateTTS
-    when 'deleteTTS'
-      return sendWebIfDeleteTTS
-    end
-    
     return {'result'=> "command [#{commandName}] is NOT found"}
   end
   
