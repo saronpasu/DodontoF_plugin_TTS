@@ -78,10 +78,10 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
   result = system(command.join)
   if result then
     lame_command = Array.allocate
-    lame_command<< LAME_PATH+'/bin/lame'
+    lame_command<< OPEN_JTalk::LAME_PATH+'/bin/lame'
     lame_command<< ' '+output_file
     lame_command<< ' '+output_file.gsub(/wav/, 'mp3')
-    system(lame_commands)
+    system(lame_command)
   end
   return result
 end
