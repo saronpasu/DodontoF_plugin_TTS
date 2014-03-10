@@ -62,7 +62,7 @@ fi
 #echo "done."
 
 echo "download SoX ..."
-wget http://jaist.dl.sourceforge.net/project/sox/sox/14.4.1/sox-14.4.1.tar.gz
+wget http://jaist.dl.sourceforge.net/project/sox/sox/13.0.0/sox-13.0.0.tar.gz
 echo "done."
 
 
@@ -115,7 +115,7 @@ echo "done."
 #echo "done."
 
 echo "uncompress SoX ... "
-tar zxf sox-14.4.1.tar.gz
+tar zxf sox-13.0.0.tar.gz
 echo "done."
 
 #: << '#_comment_out'
@@ -245,7 +245,7 @@ cd $WORK_DIR
 
 #echo "build lame ... "
 
-mv sox-14.4.1 sox
+mv sox-13.0.0 sox
 $SOX_PATH = $WORK_DIR+"/sox"
 cd sox
 echo "configuration SoX ... "
@@ -289,8 +289,8 @@ else
 fi
 #rm -r lame3.70.tar.gz
 #rm -rf lame3.70
-rm -r sox-14.4.1.tar.gz
-rm -rf sox-14.4.1
+rm -r sox-13.0.0.tar.gz
+rm -rf sox-13.0.0
 
 
 echo "done."
