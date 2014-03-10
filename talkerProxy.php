@@ -10,40 +10,10 @@ $url_replaced = $queryText;
 
 if($url_replaced == 'undefined'){ print ''; exit; }
 
-$url_replaced_decoded   = urldecode($url_replaced);
-
-// 固有名詞置換
-// Elysion関連
-$url_replaced_decoded = preg_replace('/elysion/i',' えりゅしおん ',$url_replaced_decoded);
-
-$url_replaced_decoded = preg_replace('/「/ui','・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/」/ui','・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/^：(¥d+) ¥((¥d+D%*¥d+).*/',' だいすろーる・$2・合計・$1 ',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/^：+/ui','',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]+$/ui','$1・わら ',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]{2,}/ui','$1・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/[¥.。．・…]{2,}/ui','・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/…/ui','・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/(ftp|http|https)¥:¥/¥/.*/ui','・$1のurlです・',$url_replaced_decoded);
-
-// 辞書系
-$url_replaced_decoded = preg_replace('/↑/ui','・うえ・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/↓/ui','・した・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/←/ui','・ひだり・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/→/ui','・みぎ・',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/欠片/ui','かけら',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/SANチェック/ui','さんちぇっく',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/ＳＡＮチェック/ui','さんちぇっく',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/百合展開/ui','きましたわー',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/百合/ui','ゆり',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/ktkr/ui','きたこれ',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/ｋｔｋｒ/ui','きたこれ',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/ksk/ui','かそく',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/ｋｓｋ/ui','かそく',$url_replaced_decoded);
-$url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replaced_decoded);
+$url_replaced_decoded = urldecode($url_replaced);
 
 $fp = fopen('tts.txt', 'w+');
-fwrite($fp ,$url_replaced_decoded);
+fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];

@@ -1528,7 +1528,7 @@ class DodontoFServer
     # voice_type = getRequestData('voice_type')
     
     # create TTS voice file.
-    logging("create TTS voice file: "+report)
+    logging("create TTS voice file: "+input_file)
     saveData['result'] = open_jtalk(input_file, output_file)
     logging("sendWebIfCreateTTS end")
 
