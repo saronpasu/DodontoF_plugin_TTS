@@ -44,6 +44,7 @@ $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replace
 
 $fp = fopen('tts.txt', 'w');
 fwrite($fp ,$url_replaced_decoded);
+fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];
 $tts_url = preg_replace('/DodontoF¥.swf/ui', '', $referer);
