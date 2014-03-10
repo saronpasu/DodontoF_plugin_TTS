@@ -12,13 +12,45 @@ if($url_replaced == 'undefined'){ print ''; exit; }
 
 $url_replaced_decoded = urldecode($url_replaced);
 
+// くまかばさん感謝！でも、なぜかさくらのFreeBSDのPHPでは preg ではなく ereg しか動かなかった！
+
+// 固有名詞置換
+// Elysion関連
+$url_replaced_decoded = ereg_replace('elysion',' えりゅしおん ',$url_replaced_decoded);
+
+$url_replaced_decoded = ereg_replace('「','・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('」','・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('^：(\d+) \((\d+D%*\d+).*',' だいすろーる・$2・合計・$1 ',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('^：+','',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]+$','$1・わら ',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]{2,}','$1・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('[\.。．・…]{2,}','・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('…','・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('(ftp|http|https)\:\/\/.*','・$1のurlです・',$url_replaced_decoded);
+
+// 辞書系
+$url_replaced_decoded = ereg_replace('↑','・うえ・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('↓','・した・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('←','・ひだり・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('→','・みぎ・',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('欠片','かけら',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('SANチェック','さんちぇっく',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('ＳＡＮチェック','さんちぇっく',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('百合展開','きましたわー',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('百合','ゆり',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('ktkr','きたこれ',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('ｋｔｋｒ','きたこれ',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('ksk','かそく',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('ｋｓｋ','かそく',$url_replaced_decoded);
+$url_replaced_decoded = ereg_replace('晶石','しょうせき',$url_replaced_decoded);
+
 $fp = fopen('tts.txt', 'w+');
 fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];
-$tts_url = preg_replace('/DodontoF¥.swf/ui', '', $referer);
-$webif_url = preg_replace('/¥.swf/ui', 'Server.rb',$referer);
+$tts_url = ereg_replace('DodontoF\.swf', '', $referer);
+$webif_url = ereg_replace('\.swf', 'Server.rb',$referer);
 
 $data = array(
     'webif' => 'createTTS',
