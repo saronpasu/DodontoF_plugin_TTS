@@ -22,5 +22,5 @@ tts_file = open('output.wav', 'rb')
 binary = tts_file.read
 tts_file.close
 
-cgi.out('audio/wav'){ binary }
+cgi.out('audio/mp3'){ binary }
 
