@@ -1529,10 +1529,9 @@ class DodontoFServer
     
     # create TTS voice file.
     logging("create TTS voice file: "+report)
-    report = open_jtalk(input_file, output_file)
+    saveData['result'] = open_jtalk(input_file, output_file)
     logging("sendWebIfCreateTTS end")
 
-    saveData['result'] = report
     return saveData
   end
   
@@ -1547,10 +1546,9 @@ class DodontoFServer
     target_file = getRequestData('target_file')
     logging("delete TTS voice file.")
     FileUtils.remove_file(target_file) if FileTest.exists?(target_file)
-    report = !FileTest.exists?(target_file)
+    saveData['result'] = !FileTest.exists?(target_file)
     logging("sendWebIfDeleteTTS end")
 
-    saveData['result'] = report
     return saveData
   end
   
