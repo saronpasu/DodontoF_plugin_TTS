@@ -35,11 +35,6 @@ require 'json/jsonParser'
 if( $isFirstCgi )
   require 'cgiPatch_forFirstCgi'
 end
-
-if( $useOpenJTalk == true )
-  # TTS プラグインを読み込む
-  require 'open_jtalk.rb'
-end
   
 require "config.rb"
 
@@ -47,7 +42,6 @@ begin
   require "config_local.rb"
 rescue Exception
 end
-
 
 if( $loginCountFileFullPath.nil? )
   $loginCountFileFullPath = File.join($SAVE_DATA_DIR, 'saveData', $loginCountFile)
@@ -78,7 +72,10 @@ else
   end
 end
 
-
+if( $useOpenJTalk == true )
+  # TTS プラグインを読み込む
+  require 'open_jtalk.rb'
+end
 
 $saveFileNames = File.join($saveDataTempDir, 'saveFileNames.json');
 $imageUrlText = File.join($imageUploadDir, 'imageUrl.txt');
