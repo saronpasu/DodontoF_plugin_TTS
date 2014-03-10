@@ -38,7 +38,7 @@ end
 
 if( $useOpenJTalk == true )
   # TTS プラグインを読み込む
-  require 'DodontoFServerTTS.rb'
+  require 'open_jtalk.rb'
 end
   
 require "config.rb"
