@@ -12,45 +12,44 @@ if($url_replaced == 'undefined'){ print ''; exit; }
 
 $url_replaced_decoded = urldecode($url_replaced);
 
-// くまかばさん感謝！でも、なぜかさくらのFreeBSDのPHPでは preg ではなく ereg しか動かなかった！
-
 // 固有名詞置換
 // Elysion関連
-$url_replaced_decoded = ereg_replace('elysion',' えりゅしおん ',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/elysion/i',' えりゅしおん ',$url_replaced_decoded);
 
-$url_replaced_decoded = ereg_replace('「','・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('」','・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('^：(\d+) \((\d+D%*\d+).*',' だいすろーる・$2・合計・$1 ',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('^：+','',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]+$','$1・わら ',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]{2,}','$1・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('[\.。．・…]{2,}','・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('…','・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('(ftp|http|https)\:\/\/.*','・$1のurlです・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/「/ui','・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/」/ui','・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/^：(\d+) \((\d+D%*\d+).*/',' だいすろーる・$2・合計・$1 ',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/^：+/ui','',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]+$/ui','$1・わら ',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/([^a-zA-Zａ-ｚＡ-Ｚ])[wｗ]{2,}/ui','$1・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/[\.。．・…]{2,}/ui','・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/…/ui','・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/(ftp|http|https)\:\/\/.*/ui','・$1のurlです・',$url_replaced_decoded);
 
 // 辞書系
-$url_replaced_decoded = ereg_replace('↑','・うえ・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('↓','・した・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('←','・ひだり・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('→','・みぎ・',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('欠片','かけら',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('SANチェック','さんちぇっく',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('ＳＡＮチェック','さんちぇっく',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('百合展開','きましたわー',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('百合','ゆり',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('ktkr','きたこれ',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('ｋｔｋｒ','きたこれ',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('ksk','かそく',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('ｋｓｋ','かそく',$url_replaced_decoded);
-$url_replaced_decoded = ereg_replace('晶石','しょうせき',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/↑/ui','・うえ・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/↓/ui','・した・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/←/ui','・ひだり・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/→/ui','・みぎ・',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/欠片/ui','かけら',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/SANチェック/ui','さんちぇっく',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/ＳＡＮチェック/ui','さんちぇっく',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/百合展開/ui','きましたわー',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/百合/ui','ゆり',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/ktkr/ui','きたこれ',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/ｋｔｋｒ/ui','きたこれ',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/ksk/ui','かそく',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/ｋｓｋ/ui','かそく',$url_replaced_decoded);
+$url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replaced_decoded);
 
+
+#/* Open JTalk を使う場合
 $fp = fopen('tts.txt', 'w+');
 fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
 $referer = $_SERVER["HTTP_REFERER"];
-// $tts_url = ereg_replace('DodontoF\.swf', '', $referer);
-$url = ereg_replace('DodontoF\.swf', 'tts.rb', $referer);
+$url = preg_replace('/DodontoF\.swf/', 'tts.rb', $referer);
 
 $data = array(
     'input_file' => 'tts.txt',
@@ -65,10 +64,27 @@ $options = array('http' => array(
     'header' => implode("¥r¥n", $headers),
 ));
 
+/* Google TTS を使う場合
+// 通常取得
+$url_replaced_reencoded = urlencode($url_replaced_decoded);
+$url = 'http://translate.google.com/translate_tts?tl=ja&q='.$url_replaced_reencoded;
+
+$option = array(
+   	'http'=>array(
+       	'method'=>"GET",
+       	'header' => "User-Agent:Mozilla/5.5\r\n". //Mozillaを指定
+                   	"Content-type: application/x-www-form-urlencoded\r\n".
+                   	"Accept-Language: ja-jp,en;q=0.5\r\n".
+                   	"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" ));
+$context = stream_context_create($option);
+*/
+
 //print "$url\n";
-$fp = @fopen($webif_url, 'r', false, $context);
+$fp = @fopen($url, 'r', false, $context);
 if($fp){
 	fpassthru($fp);
 	fclose($fp);
 }
+#*/
+
 ?>
