@@ -43,40 +43,41 @@ $url_replaced_decoded = preg_replace('/ｋｓｋ/ui','かそく',$url_replaced_d
 $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replaced_decoded);
 
 
-#/* Open JTalk を使う場合
+#/* === Open JTalk を使う場合 ===
 
 // 音声ファイルとかを格納するディレクトリ
 $voice_dir = "sound/tts/";
 
 // ユニークなIDを生成、それを元にファイル名を命名。
 $uid = uniqid();
-$input_file = $voice_dir . $uid . ".txt";
-$output_file = $voice_dir . $uid . ".wav";
+$input_file = $uid . ".txt";
+$output_file = $uid . ".wav";
 
 // 読み上げ用にクエリ内容を一時的にテキストファイルへ出力
-$fp = fopen($input_file, 'w+');
+$fp = fopen($voice_dir . $input_file, 'w+');
 fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
 // リファラから相対パスを取得して、tts.rb(TTS専用のCGI)の相対パスを取得する。
 $referer = $_SERVER["HTTP_REFERER"];
-$url = preg_replace('/DodontoF\.swf/', 'tts.rb', $referer);
+$url = preg_replace("/DodontoF\.swf/", "tts.rb", $referer);
 
-$data = array(
-    'input_file' => $input_file,
-    'output_file' => $output_file,
-);
-$headers = array(
-    'User-Agent: Mozilla/5.5\r\n'
-);
+$url = urlencode($url . "?input_file=" . $input_file . "&output_file=" . $output_file);
+
+#$data = array(
+#    'input_file' => $input_file,
+#    'output_file' => $output_file,
+#);
 $option = array(
     'http' => array(
     'method' => 'GET',
-    'content' => http_build_query($data),
-    'header' => implode("\r\n", $headers),
+#    'content' => http_build_query($data),
 ));
 
-/* Google TTS を使う場合
+// === ここまで Open Jtalk を使う場合 ===
+#*/
+
+/* ==== Google TTS を使う場合 ===
 // 通常取得
 $url_replaced_reencoded = urlencode($url_replaced_decoded);
 $url = 'http://translate.google.com/translate_tts?tl=ja&q='.$url_replaced_reencoded;
@@ -88,6 +89,7 @@ $option = array(
                    	"Content-type: application/x-www-form-urlencoded\r\n".
                    	"Accept-Language: ja-jp,en;q=0.5\r\n".
                    	"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" ));
+// === ここまで Google TTS を使う場合 ===
 */
 
 //print "$url\n";
@@ -96,7 +98,5 @@ $context = stream_context_create($option);
 $fp = fopen($url, 'r', false, $context);
 fpassthru($fp);
 fclose($fp);
-
-#*/
 
 ?>
