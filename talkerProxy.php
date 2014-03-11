@@ -46,12 +46,12 @@ $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replace
 #/* Open JTalk を使う場合
 
 // 音声ファイルとかを格納するディレクトリ
-$voice_dir = "sound/tts/"
+$voice_dir = "sound/tts/";
 
 // ユニークなIDを生成、それを元にファイル名を命名。
 $uid = uniqid();
-$input_file = $voice_dir . $uid . ".txt"
-$output_file = $voice_dir . $uid . ".wav"
+$input_file = $voice_dir . $uid . ".txt";
+$output_file = $voice_dir . $uid . ".wav";
 
 // 読み上げ用にクエリ内容を一時的にテキストファイルへ出力
 $fp = fopen($input_file, 'w+');
