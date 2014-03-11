@@ -62,7 +62,7 @@ fclose($fp);
 $referer = $_SERVER["HTTP_REFERER"];
 $url = preg_replace("/DodontoF\.swf/", "tts.rb", $referer);
 
-$query = urlencode("?input_file=".$input_file."&output_file=".$output_file);
+$query = urlencode("?uid=".$uid);
 $url = $url . $query;
 
 // === ここまで Open Jtalk を使う場合 ===

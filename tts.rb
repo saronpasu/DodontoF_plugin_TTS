@@ -20,8 +20,8 @@ VOICE_PATH = "sound/tts/"
 cgi = CGI.new
 
 # クエリからファイル名を取得する
-input_file = VOICE_PATH + cgi.params['input_file'].to_s
-output_file = VOICE_PATH + cgi.params['output_file'].to_s
+input_file = VOICE_PATH + cgi.params['uid'].to_s + '.txt'
+output_file = VOICE_PATH + cgi.params['uid'].to_s + '.wav'
 
 # Open JTalk でテキストから音声ファイルを生成
 open_jtalk(input_file, output_file)
