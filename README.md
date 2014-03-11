@@ -16,7 +16,7 @@ TTS plugin for DodontoF
 * このプロジェクトはまだ、[*開発段階*]です。
 * 正常系の動作のみ確認していますが、未確認の不具合が予測されます。
 * 導入をされる場合は、[*自己責任*]でお願いします。
-* 質問や、要望、不具合報告などは [@saronpasu][https://twitter.com/saronpasu] へ下さい。
+* 質問や、要望、不具合報告などは [@saronpasu](https://twitter.com/saronpasu) へ下さい。
 
 [*最終更新 2014-03-11*]
 
