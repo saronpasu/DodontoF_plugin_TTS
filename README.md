@@ -119,6 +119,7 @@ TTS plugin for DodontoF
 
 ## 開発者向けコメント
 [*概要*]
+
 1. このプラグインは、どどんとふ本体ファイルと差し替えて使用する形態をとります。
 2. diff や patch が分かる人は、 diff ディレクトリのものを使って下さい。
 3. open_jtalk_install.sh を実行すると、必要なミドルウェア(lame以外)が揃います。
@@ -126,11 +127,13 @@ TTS plugin for DodontoF
 5. 処理内容を説明します。
 
 [*前提条件*]
+
 1. $canTalk = true であること。
 2. $useTTS = true であること。
 3. ミドルウェアが導入され、ファイルの差し替えまたはパッチの適用が行われていること。
 
 [*処理内容*]
+
 1. TextTalker.as(ActionScript)が、 talkerProxy.php へチャット内容をリクエストします。
 2. talkerProxy.php で、チャット内容の正規表現置換が行われます(くまかばさんありがとう！)
 3. talkerProxy.php が、チャット内容をテキストファイルに保存します。(一時ファイルです)
