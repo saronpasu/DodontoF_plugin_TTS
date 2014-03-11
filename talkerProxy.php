@@ -69,7 +69,7 @@ $data = array(
 $headers = array(
     'User-Agent: Mozilla/5.5\r\n'
 );
-$options = array(
+$option = array(
     'http' => array(
     'method' => 'GET',
     'content' => http_build_query($data),
