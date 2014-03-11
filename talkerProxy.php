@@ -44,10 +44,21 @@ $url_replaced_decoded = preg_replace('/晶石/ui','しょうせき',$url_replace
 
 
 #/* Open JTalk を使う場合
-$fp = fopen('tts.txt', 'w+');
+
+// 音声ファイルとかを格納するディレクトリ
+$voice_dir = "sound/tts/"
+
+// ユニークなIDを生成、それを元にファイル名を命名。
+$uid = uniqid();
+$input_file = $voice_dir . $uid . ".txt"
+$output_file = $voice_dir . $uid . ".wav"
+
+// 読み上げ用にクエリ内容を一時的にテキストファイルへ出力
+$fp = fopen($input_file, 'w+');
 fwrite($fp, $url_replaced_decoded);
 fclose($fp);
 
+// リファラから相対パスを取得して、tts.rb(TTS専用のCGI)の相対パスを取得する。
 $referer = $_SERVER["HTTP_REFERER"];
 $url = preg_replace('/DodontoF\.swf/', 'tts.rb', $referer);
 
@@ -80,6 +91,7 @@ $context = stream_context_create($option);
 */
 
 //print "$url\n";
+//GoogleTTS Open JTalk共通処理。
 $fp = @fopen($url, 'r', false, $context);
 if($fp){
 	fpassthru($fp);
