@@ -16,21 +16,26 @@ require 'cgi'
 # 音声ファイルを配置するディレクトリ。
 VOICE_PATH = "sound/tts/"
 
+# CGI インスタンス生成
 cgi = CGI.new
-params = cgi.params
 
+# クエリからファイル名を取得する
 input_file = VOICE_PATH + cgi.params['input_file'].to_s
 output_file = VOICE_PATH + cgi.params['output_file'].to_s
 
+# Open JTalk でテキストから音声ファイルを生成
 open_jtalk(input_file, output_file)
 
+# 一時ファイルを削除する
 FileUtils.remove_file(input_file, true) if FileTest.exist?(input_file)
-FileUtils.remove_file(output_file, true) if FileTest.exist?(input_file)
+FileUtils.remove_file(output_file, true) if FileTest.exist?(output_file)
 
-mp3_file = output_file.to_s.gsub(/wav/, "mp3")
+# MP3ファイルを読み込む
+mp3_file = output_file.gsub(/wav$/, "mp3")
 tts_file = open(mp3_file, 'rb')
 binary = tts_file.read
 tts_file.close
 
+# MP3 をレスポンスとして返す
 cgi.out('audio/mp3'){ binary }
 
