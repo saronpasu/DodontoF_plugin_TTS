@@ -93,13 +93,10 @@ $option = array(
 //print "$url\n";
 //GoogleTTS Open JTalk共通処理。
 $context = stream_context_create($option);
+$fp = fopen($url, 'r', false, $context);
+fpassthru($fp);
+fclose($fp);
 
-
-$fp = @fopen($url, 'r', false, $context);
-if($fp){
-	fpassthru($fp);
-	fclose($fp);
-}
 #*/
 
 ?>
