@@ -30,17 +30,16 @@ class DodontoFServerTTS
     logging("sendWebIfCreateTTS begin")
     saveData = {}
     
-    input_file = getRequestData('input_file')
-    output_file = getRequestData('output_file')
+    input_file = getRequestData("input_file")
+    output_file = getRequestData("output_file")
     # 追加ボイスは未実装です。
     # voice_type = getRequestData('voice_type')
     
     # create TTS voice file.
-    logging("create TTS voice file: "+report)
-    report = open_jtalk(input_file, output_file)
+    logging("create TTS voice file: "+input_file)
+    saveData["result"] = open_jtalk(input_file, output_file)
     logging("sendWebIfCreateTTS end")
 
-    saveData['result'] = report
     return saveData
   end
   
@@ -55,10 +54,9 @@ class DodontoFServerTTS
     target_file = getRequestData('target_file')
     logging("delete TTS voice file.")
     FileUtils.remove_file(target_file) if FileTest.exists?(target_file)
-    report = !FileTest.exists?(target_file)
+    saveData['result'] = !FileTest.exists?(target_file)
     logging("sendWebIfDeleteTTS end")
 
-    saveData['result'] = report
     return saveData
   end
 end

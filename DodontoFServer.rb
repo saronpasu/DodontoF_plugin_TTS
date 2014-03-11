@@ -75,6 +75,9 @@ end
 if( $useOpenJTalk == true )
   # TTS プラグインを読み込む
   require 'open_jtalk.rb'
+  unless FileTest.exist?('sound/tts') then
+    FileUtils.mkdir('sound/tts')
+  end
 end
 
 $saveFileNames = File.join($saveDataTempDir, 'saveFileNames.json');

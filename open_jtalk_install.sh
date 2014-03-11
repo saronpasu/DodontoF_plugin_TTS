@@ -56,14 +56,6 @@ else
 fi
 #_comment_out
 
-#echo "download lame ... "
-#wget http://ftp.jaist.ac.jp/pub/sourceforge/l/la/lame/lame/3.97/lame-3.97.tar.gz
-#wget http://jaist.dl.sourceforge.net/project/lame/lame/3.70/lame3.70.tar.gz
-#echo "done."
-
-echo "download SoX ..."
-wget http://jaist.dl.sourceforge.net/project/sox/sox/12.16/sox-12.16.tar.gz
-echo "done."
 
 
 echo "uncompress packages."
@@ -108,15 +100,6 @@ fi
 echo "done."
 
 #_comment_out
-
-
-#echo "uncompress lame ... "
-#tar zxf lame3.70.tar.gz
-#echo "done."
-
-echo "uncompress SoX ... "
-tar zxf sox-12.16.tar.gz
-echo "done."
 
 #: << '#_comment_out'
 
@@ -234,34 +217,6 @@ echo "done."
 
 #_comment_out
 
-cd $WORK_DIR
-
-#mv lame3.70 lame
-#$LAME_PATH = $WORK_DIR+'/lame'
-#cd lame
-#echo "configuration lame ... "
-#./configure --prefix=$LAME_PATH 
-#echo "done."
-
-#echo "build lame ... "
-
-mv sox-12.16 sox
-$SOX_PATH = $WORK_DIR+"/sox"
-cd sox
-echo "configuration SoX ... "
-./configure --prefix=$SOX_PATH
-echo "done."
-
-if [ "$UNAME" = "FreeBSD" ]; then
-  gmake
-  gmake install
-else
-  make
-  make install
-fi
-
-
-
 echo "done."
 cd $WORK_DIR
 
@@ -287,11 +242,6 @@ else
   rm -r MMDAgent_Example-1.4.zip
   rm -rf MMDAgent_Example-1.4
 fi
-#rm -r lame3.70.tar.gz
-#rm -rf lame3.70
-rm -r sox-12.16.tar.gz
-rm -rf sox-12.16
-
 
 echo "done."
 
