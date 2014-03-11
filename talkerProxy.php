@@ -67,12 +67,13 @@ $data = array(
     'output_file' => $output_file,
 );
 $headers = array(
-    'User-Agent: Mozilla/5.5'
+    'User-Agent: Mozilla/5.5\r\n'
 );
-$options = array('http' => array(
+$options = array(
+    'http' => array(
     'method' => 'GET',
     'content' => http_build_query($data),
-    'header' => implode("¥r¥n", $headers),
+    'header' => implode("\r\n", $headers),
 ));
 
 /* Google TTS を使う場合
@@ -87,11 +88,13 @@ $option = array(
                    	"Content-type: application/x-www-form-urlencoded\r\n".
                    	"Accept-Language: ja-jp,en;q=0.5\r\n".
                    	"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" ));
-$context = stream_context_create($option);
 */
 
 //print "$url\n";
 //GoogleTTS Open JTalk共通処理。
+$context = stream_context_create($option);
+
+
 $fp = @fopen($url, 'r', false, $context);
 if($fp){
 	fpassthru($fp);
