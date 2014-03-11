@@ -62,19 +62,8 @@ fclose($fp);
 $referer = $_SERVER["HTTP_REFERER"];
 $url = preg_replace("/DodontoF\.swf/", "tts.rb", $referer);
 
-$data = array(
-    'input_file' => $input_file,
-    'output_file' => $output_file,
-);
-$option = array(
-    'http' => array(
-    'method' => 'GET',
-    'content' => http_build_query($data),
-    'header' => "User-Agent:Mozilla/5.5\r\n". //Mozillaを指定
-                "Content-type: application/x-www-form-urlencoded\r\n".
-                "Accept-Language: ja-jp,en;q=0.5\r\n".
-                "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-));
+$query = urlencode("?input_file=".$input_file."&output_file=".$output_file);
+$url = $url . $query;
 
 // === ここまで Open Jtalk を使う場合 ===
 #*/
@@ -84,6 +73,10 @@ $option = array(
 $url_replaced_reencoded = urlencode($url_replaced_decoded);
 $url = 'http://translate.google.com/translate_tts?tl=ja&q='.$url_replaced_reencoded;
 
+// === ここまで Google TTS を使う場合 ===
+*/
+
+//GoogleTTS Open JTalk共通処理。
 $option = array(
    	'http'=>array(
        	'method'=>"GET",
@@ -91,10 +84,7 @@ $option = array(
                    	"Content-type: application/x-www-form-urlencoded\r\n".
                    	"Accept-Language: ja-jp,en;q=0.5\r\n".
                    	"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" ));
-// === ここまで Google TTS を使う場合 ===
-*/
 
-//GoogleTTS Open JTalk共通処理。
 //print "$url\n";
 $context = stream_context_create($option);
 $fp = fopen($url, 'r', false, $context);
