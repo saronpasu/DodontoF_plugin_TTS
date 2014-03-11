@@ -63,8 +63,8 @@ $referer = $_SERVER["HTTP_REFERER"];
 $url = preg_replace('/DodontoF\.swf/', 'tts.rb', $referer);
 
 $data = array(
-    'input_file' => 'tts.txt',
-    'output_file' => 'tts.wav',
+    'input_file' => $input_file,
+    'output_file' => $output_file,
 );
 $headers = array(
     'User-Agent: Mozilla/5.5'
