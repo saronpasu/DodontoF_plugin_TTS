@@ -37,5 +37,5 @@ binary = tts_file.read
 tts_file.close
 
 # MP3 をレスポンスとして返す
-cgi.out('audio/mp3'){ binary }
+cgi.out('audio/mpeg'){ binary }
 

@@ -90,4 +90,9 @@ $fp = fopen($url, 'r', false, $context);
 fpassthru($fp);
 fclose($fp);
 
+#/* === Open JTalk を使う場合 ===
+unlink($voice_dir . $uid . ".mp3");
+// === ここまで Open JTalk を使う場合 ===
+#*/
+
 ?>

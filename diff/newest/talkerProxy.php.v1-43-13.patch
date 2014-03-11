@@ -1,5 +1,5 @@
 *** talkerProxy.org.php	2012-11-23 16:19:27.000000000 +0900
---- talkerProxy.php	2014-03-11 13:50:45.439029000 +0900
+--- talkerProxy.php	2014-03-11 19:37:19.047380000 +0900
 ***************
 *** 1,16 ****
 ! <?php
@@ -18,7 +18,7 @@
 ! fpassthru($fp);
 ! fclose($fp);
 ! ?>
---- 1,93 ----
+--- 1,98 ----
 ! <?php
 ! 
 ! date_default_timezone_set('Asia/Tokyo');
@@ -110,5 +110,10 @@
 ! $fp = fopen($url, 'r', false, $context);
 ! fpassthru($fp);
 ! fclose($fp);
+! 
+! #/* === Open JTalk を使う場合 ===
+! unlink($voice_dir . $uid . ".mp3");
+! // === ここまで Open JTalk を使う場合 ===
+! #*/
 ! 
 ! ?>
