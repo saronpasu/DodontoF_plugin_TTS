@@ -20,6 +20,10 @@ TTS plugin for DodontoF
 
 [*最終更新 2014-03-11*]
 
+## どんな感じなの？？
+* デモンストレーション用のお試しどどんとふを用意しました。
+* 詳しい使い方や、URLなどは [デモンストレーション用どどんとふへのご案内](https://github.com/saronpasu/DodontoF_plugin_TTS/wiki/%E3%83%87%E3%83%A2%E3%83%B3%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%94%A8%E3%81%A9%E3%81%A9%E3%82%93%E3%81%A8%E3%81%B5%E3%81%B8%E3%81%AE%E3%81%94%E6%A1%88%E5%86%85) ページをご覧ください。
+
 
 ## 依存しているミドルウェア
 * Open JTalk [URL](http://open-jtalk.sourceforge.net/)
