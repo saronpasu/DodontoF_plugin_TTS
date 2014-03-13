@@ -123,9 +123,11 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
     else
       result<< {:lame_result => lame_result}
     end
-  end
 
 =end
+
+  end
+
   
   # 実行結果を返す。
   return result

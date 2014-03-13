@@ -135,7 +135,12 @@ echo "configuration hts_engine ... "
 if [ "$UNAME" = "FreeBSD" ]; then
   ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
 else
+# x86_64
   ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
+
+# i386
+#  ./configure --prefix=$HTS_ENGINE_PATH --exec-prefix=$HTS_ENGINE_PATH
+
 fi
 ##_comment_out
 
@@ -182,7 +187,12 @@ echo "configuration open_jtalk ... "
 if [ "$UNAME" = "FreeBSD" ]; then
   ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib
 else
+# x86_64
   ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib
+
+# i386
+#  ./configure --prefix=$OPEN_JTALK_PATH --exec-prefix=$OPEN_JTALK_PATH --with-hts-engine-header-path=$HTS_ENGINE_PATH/include --with-charset=UTF-8 --with-hts-engine-library-path=$HTS_ENGINE_PATH/lib --target=i386-unknown-ubuntu
+
 fi
 ##_comment_out
 

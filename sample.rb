@@ -1,5 +1,6 @@
 #!/usr/bin/ruby -Ku
 #-*- encoding :utf-8 -*-
+$LOAD_PATH << File.dirname(__FILE__) # require_relative対策
 
 =begin
 このスクリプトは、 Open JTalk 環境が正しく導入されているかどうか。
@@ -19,5 +20,6 @@ Open JTalk 環境が正しくセットアップできていない。
 くれぐれも、 Open JTalk 作者へは連絡しないようご注意下さい。
 
 =end
+
 require 'open_jtalk'
 open_jtalk('sample.txt', 'sample.wav')
