@@ -58,6 +58,8 @@
     * [*注意事項*]
         * もし、DodontoF ディレクトリの配置を変更している場合は
         * 変更後の DodontoF ディレクトリに以下の内容を行って下さい。
+
+### ミドルウェアの導入
 * ミドルウェアをディレクトリごと、 DodontoF ディレクトリへコピーして下さい。
 * コピーさせるもの。
     * lame
@@ -74,7 +76,7 @@
     * open_jtalk
     * hts_engine
 
-
+### talkerProxy.php の差し替え
 * DodontoF ディレクトリにある talkerProxy.php というファイルを上書きコピーして下さい。
 * DodontoF ディレクトリに tts.rb をコピーして下さい。
 
@@ -88,6 +90,7 @@
     * talkerProxy.php
     * tts.rb
 
+### open_jtalk.rb の導入
 * DodontoF ディレクトリ配下にある src_ruby ディレクトリへ open_jtalk.rb をコピーして下さい。
 
 
@@ -100,9 +103,11 @@
     * src_ruby
         * open_jtalk.rb
 
-
+### 実行権限の変更
 * talkerProxy.php と tts.rb に実行権限を与えて下さい。
     * 700(実行権限あり) のことです。
+
+### お疲れ様でした。
 * 以上で、導入手順はすべて終了です。お疲れ様でした。
 * 動作確認、ならびに使い方については[デモンストレーション用ページ](https://github.com/saronpasu/DodontoF_plugin_TTS/wiki/%E3%83%87%E3%83%A2%E3%83%B3%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%94%A8%E3%81%A9%E3%81%A9%E3%82%93%E3%81%A8%E3%81%B5%E3%81%B8%E3%81%AE%E3%81%94%E6%A1%88%E5%86%85) と同じです。そちらを参照下さい。
 
