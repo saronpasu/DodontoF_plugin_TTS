@@ -88,6 +88,18 @@
     * talkerProxy.php
     * tts.rb
 
+* DodontoF ディレクトリ配下にある src_ruby ディレクトリへ open_jtalk.rb をコピーして下さい。
+
+
+[*変更前*]
+* DodontoF
+    * src_ruby
+
+[*変更後*]
+* DodontoF
+    * src_ruby
+        * open_jtalk.rb
+
 
 * talkerProxy.php と tts.rb に実行権限を与えて下さい。
     * 700(実行権限あり) のことです。
