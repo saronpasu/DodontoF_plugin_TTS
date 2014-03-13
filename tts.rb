@@ -26,6 +26,8 @@ output_file = VOICE_PATH + cgi.params['uid'].to_s + '.wav'
 # Open JTalk でテキストから音声ファイルを生成
 result = open_jtalk(input_file, output_file)
 
+=begin
+# エラー系の処理。失敗したので保留。
 case
 when result[:open_jtalk_result] != true
   # Open JTalk error case
@@ -34,6 +36,7 @@ when result[:lame_result] != true
   # LAME error case
   cgi.out { result[:lame_result].inspect }
 end
+=end
 
 # 一時ファイルを削除する
 FileUtils.remove_file(input_file, true) if FileTest.exist?(input_file)

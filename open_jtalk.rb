@@ -86,13 +86,19 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
   
   # Open JTalk を実行し、テキスト => WAVE 生成。
   open_jtalk_result = system(command.join)
+
+=begin
+# エラー系の処理。なんか失敗しているのでリリースには保留。
+
   # Open JTalk エラー時の処理。（メッセージを吐くだけだけど)
-  unless result == true
+  unless open_jtalk_result == true
     error = StandardError.new('Open JTalk execute fault.')
     result<< {:open_jtalk_result => error}
   else
     result<< {:open_jtalk_result => open_jtalk_result}
   end
+
+=end
   
   # LAME で WAVE => MP3 へ変換する処理。
   if open_jtalk_result then
@@ -105,6 +111,11 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
     
     # LAME 実行し WAVE => MP3 変換。
     lame_result = system(lame_command.join)
+
+
+=begin
+# エラー系の処理。なんか失敗しているのでリリースには保留。
+
     # LAME エラー時の処理。（メッセージを吐くだけだけど)
     unless lame_result == true
       error = StandardError.new('LAME execute fault.')
@@ -113,6 +124,8 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
       result<< {:lame_result => lame_result}
     end
   end
+
+=end
   
   # 実行結果を返す。
   return result
