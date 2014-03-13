@@ -33,10 +33,10 @@ TTS plugin for DodontoF
     * [*最終更新: 2014-03-10*]
 
 ## 導入方法
-* 長いので INSTALL へまとめておきました。
+* 長いので [INSTALL](https://github.com/saronpasu/DodontoF_plugin_TTS/blob/master/INSTALL.md) へまとめておきました。
 
 ## 開発者向け情報
-* 長いので DEVELOPMENT へまとめました。
+* 長いので [DEVELOPMENT](https://github.com/saronpasu/DodontoF_plugin_TTS/blob/master/DEVELOPMENT.md) へまとめました。
 
 
 ## パッケージに含まれるもの
@@ -82,7 +82,7 @@ TTS plugin for DodontoF
 
 
 ## TODO
-長いので、 TODO.md にまとめておきます。
+長いので、 [TODO](https://github.com/saronpasu/DodontoF_plugin_TTS/blob/master/TODO.md) にまとめておきます。
 
 ## COPYING
 ### Open JTalk
