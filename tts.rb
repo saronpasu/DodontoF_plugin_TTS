@@ -24,13 +24,27 @@ input_file = VOICE_PATH + cgi.params['uid'].to_s + '.txt'
 output_file = VOICE_PATH + cgi.params['uid'].to_s + '.wav'
 
 # Open JTalk でテキストから音声ファイルを生成
-open_jtalk(input_file, output_file)
+result = open_jtalk(input_file, output_file)
+
+case
+when result[:open_jtalk_result] != true
+  # Open JTalk error case
+  cgi.out { result[:open_jtalk_result].inspect }
+when result[:lame_result] != true
+  # LAME error case
+  cgi.out { result[:lame_result].inspect }
+end
 
 # 一時ファイルを削除する
 FileUtils.remove_file(input_file, true) if FileTest.exist?(input_file)
 FileUtils.remove_file(output_file, true) if FileTest.exist?(output_file)
 
 # MP3ファイルを読み込む
+unless FiteTest.exist?(mp3_file) == true
+  # MP3 ファイルがなぜか存在しない場合
+  cgi.out { "not found MP3 file." }
+end
+
 mp3_file = output_file.gsub(/wav$/, "mp3")
 tts_file = open(mp3_file, 'rb')
 binary = tts_file.read

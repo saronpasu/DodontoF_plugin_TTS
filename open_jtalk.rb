@@ -40,13 +40,21 @@ end
 
 =end
 def open_jtalk(input_file, output_file = nil, voice = nil)
+  result = Array.allocate
+  
+  # 出力ファイル
   output_file ||= OPEN_JTalk::DEFAULT_OUTPUT_FILE
+  # 音声話者指定
   voice ||= 'mei_normal'
+
+  # コマンド生成
   command = Array.allocate
   command<< OPEN_JTalk::OPEN_JTALK_PATH+'/bin/open_jtalk'
   unless `uname`.match(/FreeBSD/) then
+    # FreeBSD 以外の場合の処理
     command<< ' -m '+OPEN_JTalk::VOICE_PATH+voice+'.htsvoice'
   else
+    # FreeBSD の場合の処理
     command<< ' -td '+OPEN_JTalk::VOICE_PATH+voice+'/tree-dur.inf'
     command<< ' -tm '+OPEN_JTalk::VOICE_PATH+voice+'/tree-mgc.inf'
     command<< ' -tf '+OPEN_JTalk::VOICE_PATH+voice+'/tree-lf0.inf'
@@ -75,15 +83,38 @@ def open_jtalk(input_file, output_file = nil, voice = nil)
   command<< ' -x '+OPEN_JTalk::DICT_PATH
   command<< ' -ow '+output_file
   command<< ' '+input_file
-  result = system(command.join)
-  if result then
+  
+  # Open JTalk を実行し、テキスト => WAVE 生成。
+  open_jtalk_result = system(command.join)
+  # Open JTalk エラー時の処理。（メッセージを吐くだけだけど)
+  unless result == true
+    error = StandardError.new('Open JTalk execute fault.')
+    result<< {:open_jtalk_result => error}
+  else
+    result<< {:open_jtalk_result => open_jtalk_result}
+  end
+  
+  # LAME で WAVE => MP3 へ変換する処理。
+  if open_jtalk_result then
+    # コマンド生成
     lame_command = Array.allocate
     lame_command<< OPEN_JTalk::LAME_PATH+'/bin/lame'
     lame_command<< ' --silent'
     lame_command<< ' '+output_file
     lame_command<< ' '+output_file.gsub(/wav$/, 'mp3')
-    system(lame_command.join)
+    
+    # LAME 実行し WAVE => MP3 変換。
+    lame_result = system(lame_command.join)
+    # LAME エラー時の処理。（メッセージを吐くだけだけど)
+    unless lame_result == true
+      error = StandardError.new('LAME execute fault.')
+      result<< {:lame_result => error}
+    else
+      result<< {:lame_result => lame_result}
+    end
   end
+  
+  # 実行結果を返す。
   return result
 end
 
