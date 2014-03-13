@@ -67,6 +67,7 @@
 
 [*変更前*]
 * DodontoF
+
 [*変更後*]
 * DodontoF
     * lame
@@ -81,6 +82,7 @@
 [*変更前*]
 * DodontoF
     * talkerProxy.php
+
 [*変更後*]
 * DodontoF
     * talkerProxy.php
