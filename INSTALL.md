@@ -5,6 +5,7 @@
 ## さくらレンタルサーバ 導入する場合
 * [リリースページ](https://github.com/saronpasu/DodontoF_plugin_TTS/releases) から
 * タイトルか説明文に 「 Support for Sakura rental Server 」と書いてあるものをダウンロードします。
+* 共通までスキップ。
 
 
 ## それ以外の場合
