@@ -42,11 +42,6 @@ end
 FileUtils.remove_file(input_file, true) if FileTest.exist?(input_file)
 FileUtils.remove_file(output_file, true) if FileTest.exist?(output_file)
 
-# MP3ファイルを読み込む
-unless FiteTest.exist?(mp3_file) == true
-  # MP3 ファイルがなぜか存在しない場合
-  cgi.out { "not found MP3 file." }
-end
 
 mp3_file = output_file.gsub(/wav$/, "mp3")
 tts_file = open(mp3_file, 'rb')
